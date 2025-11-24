@@ -51,9 +51,22 @@ def registrar_venta():
     menu()
 
 def mostrar_inventario():
-    print("Mostrar Inventario")
-    for i in range(len(lista_productos)):
-         print(lista_productos[i],sep="\t")
+    print("\n=============== INVENTARIO ===============")
+    if len(lista_productos) == 0:
+          print("No hay productos registrados. \n")
+          return menu()
+    
+    for producto in lista_productos:
+          print("Codigo: ", producto[1])
+          print("Nombre: ", producto[0])
+          print("Precio: ", producto[2])
+          print("Marca: ", producto[3])
+          print("Fecha de importancion: ", producto[4])
+          print("Daños: ", producto[5])
+          print("Almacenamiento: ", producto[6])
+          print("Cantidad: ", producto[7])
+          print("\n==========================================")
+          
     menu()
 
 def salir():
@@ -62,13 +75,25 @@ def salir():
     #Diseniar interfaz de inventario con print (Mostrar Codigo/Nombre/Precio/etc.)(Mid)
 
 #Mensaje de Bienvenida y mostrar Opciones (Mid)
+
+print("=======================================================")
+print("       SISTEMA DE INVENTARIO - TIENDA AUTOMOTRIZ")
+print("=======================================================\n")
 #Registrar Fecha en formato (dd/mm/aaaa) (Mid)
+
 #Registrar nombre del usuario (Junior)
 
+print(f"Bienvenido/a {nombre_usuario}. Fecha registrada: {fecha_hoy}\n")
+
 def menu():
+     print("========= MENU =========\n")
+     print("- 1. Registrar producto")
+     print("- 1. Registrar venta")
+     print("- 1. Mostrar inventarioo")
+     print("- 1. Salir del sistema")
      seleccion = 0
      print("Opciones (1-4)")
-     seleccion = int(input("\n"))
+     seleccion = int(input("Selecciona una opcion (1-4): \n"))
      if seleccion == 1:
         print("")
         registrar_producto()
