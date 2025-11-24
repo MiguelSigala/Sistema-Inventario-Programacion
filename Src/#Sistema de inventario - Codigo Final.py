@@ -53,12 +53,50 @@ def registrar_producto():
     menu()
 
 
+#Definir funcion de registrar venta(Mid)
 def registrar_venta():
-    print("Registrar Venta")
+    print("\n--- Registro De Venta ---")
 
-    #Definir funcion de registrar venta(Mid)
-    
-    menu()
+    codigo_buscar = int(input("Ingrese el código del producto vendido:\n"))
+    encontrado = False
+    for i in range(len(lista_productos)):
+        producto = lista_productos[i]
+        nombre = producto[0]
+        codigo = producto[1]
+        cantidad_actual = int(producto[7])
+
+        if codigo_buscar == codigo:
+            encontrado = True
+            print(f"Producto encontrado: {nombre}")
+            cantidad_vender = int(input("Ingrese cantidad vendida:\n"))
+            
+            if cantidad_vender <= 0:
+                print("La cantidad debe ser mayor a 0.")
+                menu()
+                return
+
+            if cantidad_vender > cantidad_actual:
+                print("No hay suficiente inventario para esta venta.")
+                menu()
+                return
+
+            nueva_cantidad = cantidad_actual - cantidad_vender
+
+            lista_productos[i] = (
+                producto[0], producto[1], producto[2], producto[3],
+                producto[4], producto[5], producto[6], str(nueva_cantidad)
+            )
+
+            print("\nVenta registrada con éxito.")
+            print(f"Fecha de venta: {fecha_registro}")
+            print(f"Cantidad restante del producto: {nueva_cantidad}")
+
+            menu()
+            return
+
+    if not encontrado:
+        print("No se encontró un producto con ese código.")
+        menu()
 
 def mostrar_inventario():
     print("\n=============== INVENTARIO ===============")
@@ -91,9 +129,17 @@ print("       SISTEMA DE INVENTARIO - TIENDA AUTOMOTRIZ")
 print("=======================================================\n")
 #Registrar Fecha en formato (dd/mm/aaaa) (Mid)
 
+print("Ingresa la fecha del día de hoy: \n")
+
+dia = int(input("Día (00): "))
+mes = int(input("Mes (00): "))
+anio = int(input("Año (00): "))
+fecha_registro = (dia, mes, anio)
+print("Fecha registrada: ", fecha_registro)
+
 #Registrar nombre del usuario (Junior)
 
-print(f"Bienvenido/a {nombre_usuario}. Fecha registrada: {fecha_hoy}\n")
+print(f"Bienvenido/a {nombre_usuario}. Fecha registrada: {fecha_registro}\n")
 
 def menu():
      print("========= MENU =========\n")
