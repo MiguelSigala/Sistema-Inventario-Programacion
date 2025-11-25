@@ -1,5 +1,7 @@
 #Sistema de Inventario
 
+import csv
+
 #Definir Variables (Junior)
 
 codigo = 0
@@ -7,17 +9,7 @@ seleccion = 0
 lista_productos = []
 
 #Definir Funciones (Senior)
-#Diseniar Interfaz con prints (Junior)
-#nombre del usuario
-def registrar_usuario():
-    print("Por favor, ingresa tu nombre de usuario: ")
-    print("\n" + "=" * 45)
-    print(f"  !Bienvenido al Sistema de inventario")
-    print("Lantas y servicios Wall")
-    print("=" * 45)
-    print("Este sistema te permitira registrar, consultar y")
-    print("administrar tus productos de forma sedncilla. \n")
-    print("Iniciando sesion....\n")
+    #Diseniar Interfaz con prints (Junior)
 
 def registrar_producto():
     print("Ingresar codigo del producto")
@@ -49,11 +41,15 @@ def registrar_producto():
     cantidad = (input(""))
     producto = (nombre,codigo,precio,marca,fecha,danios,almacenamiento,cantidad)
     lista_productos.append(producto)
+    with open("inventario.csv", "a") as archivo:
+        writer = csv.writer(archivo)
+        writer.writerow(producto)
     print("Producto Registrado")
     menu()
 
 
 #Definir funcion de registrar venta(Mid)
+
 def registrar_venta():
     print("\n--- Registro De Venta ---")
 
@@ -87,6 +83,11 @@ def registrar_venta():
                 producto[4], producto[5], producto[6], str(nueva_cantidad)
             )
 
+            with open("inventario.csv", "w", newline="") as archivo:
+                writer = csv.writer(archivo)
+                writer.writerow(["Nombre", "Código", "Precio", "Marca", "Fecha", "Daños", "Almacenamiento", "Cantidad"])
+                writer.writerows(lista_productos)
+
             print("\nVenta registrada con éxito.")
             print(f"Fecha de venta: {fecha_registro}")
             print(f"Cantidad restante del producto: {nueva_cantidad}")
@@ -98,29 +99,46 @@ def registrar_venta():
         print("No se encontró un producto con ese código.")
         menu()
 
+import csv
+
 def mostrar_inventario():
-    print("\n=============== INVENTARIO ===============")
-    if len(lista_productos) == 0:
-          print("No hay productos registrados. \n")
-          return menu()
-    
-    for producto in lista_productos:
-          print("Codigo: ", producto[1])
-          print("Nombre: ", producto[0])
-          print("Precio: ", producto[2])
-          print("Marca: ", producto[3])
-          print("Fecha de importancion: ", producto[4])
-          print("Daños: ", producto[5])
-          print("Almacenamiento: ", producto[6])
-          print("Cantidad: ", producto[7])
-          print("\n==========================================")
-          
-    menu()
+    print("\n=============== INVENTARIO ===============\n")
+
+    try:
+        with open("inventario.csv", "r") as archivo:
+            reader = csv.reader(archivo)
+            datos = list(reader)
+
+            if len(datos) <= 1:
+                print("No hay productos registrados.\n")
+                return menu()
+
+            start = 1 if datos[0][0].lower() == "nombre" else 0
+
+            for producto in datos[start:]:
+
+                if len(producto) < 8:
+                    continue
+
+                print("Codigo: ", producto[1])
+                print("Nombre: ", producto[0])
+                print("Precio: ", producto[2])
+                print("Marca: ", producto[3])
+                print("Fecha de importacion: ", producto[4])
+                print("Daños: ", producto[5])
+                print("Almacenamiento: ", producto[6])
+                print("Cantidad: ", producto[7])
+                print("\n==========================================")
+
+    except FileNotFoundError:
+        print("No existe el archivo inventario.csv\n")
+
+    return menu()
 
 def salir():
     print("Gracias, vuelva pronto!")
 
-    #Diseniar interfaz de inventario con print (Mostrar Codigo/Nombre/Precio/etc.)(Mid)
+#Diseniar interfaz de inventario con print (Mostrar Codigo/Nombre/Precio/etc.)(Mid)
 
 #Mensaje de Bienvenida y mostrar Opciones (Mid)
 
@@ -131,16 +149,19 @@ print("=======================================================\n")
 
 print("Ingresa la fecha del día de hoy: \n")
 
+###Definir condicional si el anio es invalido (si es mayor a 2025 y si es menor a 2000)(Mid)
+
 dia = int(input("Día (00): "))
 mes = int(input("Mes (00): "))
-anio = int(input("Año (00): "))
+anio = int(input("Año (0000): "))
 fecha_registro = (dia, mes, anio)
 print("Fecha registrada: ", fecha_registro)
 
 #Registrar nombre del usuario (Junior)
-
+nombre_usuario = input(str())
 print(f"Bienvenido/a {nombre_usuario}. Fecha registrada: {fecha_registro}\n")
 
+##Corregir menu (Jr)
 def menu():
      print("========= MENU =========\n")
      print("- 1. Registrar producto")
