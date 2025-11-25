@@ -9,12 +9,7 @@ seleccion = 0
 lista_productos = []
 
 #Definir Funciones (Senior)
-<<<<<<< HEAD
     #Diseniar Interfaz con prints (Junior)
-=======
-#Diseniar Interfaz con prints (Junior)
-#nombre del usuario
->>>>>>> 08b5051ff4eb1bc0a155484a1fa211016b26772f
 
 def registrar_producto():
     print("Ingresar codigo del producto")
@@ -141,7 +136,7 @@ def mostrar_inventario():
     return menu()
 
 def salir():
-    print("Gracias, vuelva pronto!")
+    print("¡Gracias, vuelva pronto!")
 
 #Diseniar interfaz de inventario con print (Mostrar Codigo/Nombre/Precio/etc.)(Mid)
 
@@ -170,12 +165,13 @@ print(f"Bienvenido/a {nombre_usuario}. Fecha registrada: {fecha_registro}\n")
 def menu():
      print("========= MENU =========\n")
      print("- 1. Registrar producto")
-     print("- 1. Registrar venta")
-     print("- 1. Mostrar inventarioo")
-     print("- 1. Salir del sistema")
+     print("- 2. Registrar venta")
+     print("- 3. Mostrar inventario")
+     print("- 4. Mostrar historial")
+     print("- 5. Salir del sistema")
+     print("========================\n")
      seleccion = 0
-     print("Opciones (1-4)")
-     seleccion = int(input("Selecciona una opcion (1-4): \n"))
+     seleccion = int(input("Selecciona una opcion (1-5): "))
      if seleccion == 1:
         print("")
         registrar_producto()
