@@ -9,7 +9,12 @@ seleccion = 0
 lista_productos = []
 
 #Definir Funciones (Senior)
+<<<<<<< HEAD
     #Diseniar Interfaz con prints (Junior)
+=======
+#Diseniar Interfaz con prints (Junior)
+#nombre del usuario
+>>>>>>> 08b5051ff4eb1bc0a155484a1fa211016b26772f
 
 def registrar_producto():
     print("Ingresar codigo del producto")
@@ -186,5 +191,5 @@ def menu():
              print("Opcion Invalida")
              menu()
 
-             
+
 menu()
