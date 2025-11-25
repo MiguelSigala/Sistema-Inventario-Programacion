@@ -12,40 +12,101 @@ lista_productos = []
     #Diseniar Interfaz con prints (Junior)
 
 def registrar_producto():
-    print("Ingresar codigo del producto")
-    codigo = int(input("\n"))
-    for i in lista_productos:
-            if codigo == i[0]:
-                print("\nese codigo ya esta registrado")
-                registrar_producto()
-    print("Ingresar Nombre del producto")
-    nombre = (input("\n"))
-    for i in lista_productos:
-            if nombre == i[0]:
-                print("\nese codigo ya esta registrado")
-                registrar_producto()
-    print("Ingresar el Precio del producto")
-    precio = int(input(""))
-    while precio <= 0:
-         print("Ese precio no es valido, intente de nuevo")
-         precio = int(input(""))
-    print("Ingresar la Marca del producto")
-    marca = (input(""))
-    print("Ingresar la Fecha de importacion del producto")
-    fecha = (input(""))
-    print("Ingresar danios del producto")
-    danios = (input(""))
-    print("Ingresar lugar del almacenamiento producto")
-    almacenamiento = (input(""))
-    print("Ingresar cantidad en existencia del producto")
-    cantidad = (input(""))
-    producto = (nombre,codigo,precio,marca,fecha,danios,almacenamiento,cantidad)
+
+    print("\n" + "="*60)
+    print("         SISTEMA DE INVENTARIO - REGISTRO DE PRODUCTO")
+    print("="*60)
+
+    print("\n[1] Datos de identificación")
+    print("-"*60)
+
+    while True:
+        try:
+            codigo = int(input("   ➤ Ingresa el CÓDIGO numérico del producto: "))
+        except ValueError:
+            print("   ⚠ El código debe ser un número entero. Intenta de nuevo.")
+            continue
+
+        
+        codigo_repetido = False
+        for prod in lista_productos:
+            if codigo == prod[1]:      
+                codigo_repetido = True
+                break
+
+        if codigo_repetido:
+            print("   ❌ Ese código YA está registrado. Escribe uno diferente.")
+        else:
+            print("   ✅ Código disponible.")
+            break
+
+    
+    while True:
+        nombre = input("\n   ➤ Ingresa el NOMBRE del producto: ").strip().title()
+        if nombre == "":
+            print("   ⚠ El nombre no puede estar vacío.")
+            continue
+
+        nombre_repetido = False
+        for prod in lista_productos:
+            if nombre.lower() == prod[0].lower():   
+                nombre_repetido = True
+                break
+
+        if nombre_repetido:
+            print("   ❌ Ese nombre YA está registrado. Usa uno diferente.")
+        else:
+            print("   ✅ Nombre disponible.")
+            break
+
+    
+    print("\n[2] Datos económicos")
+    print("-"*60)
+
+    while True:
+        try:
+            precio = float(input("   ➤ Ingresa el PRECIO del producto: "))
+            if precio <= 0:
+                print("   ⚠ El precio debe ser mayor que 0.")
+            else:
+                break
+        except ValueError:
+            print("   ⚠ Ingresa un valor numérico válido para el precio.")
+
+    
+    print("\n[3] Información general")
+    print("-"*60)
+
+    marca = input("   ➤ Ingresa la MARCA del producto: ").strip().title()
+    fecha = input("   ➤ Ingresa la FECHA de importación (dd/mm/aaaa): ").strip()
+    danios = input("   ➤ Ingresa los DAÑOS del producto (si no tiene, escribe 'Ninguno'): ").strip()
+    almacenamiento = input("   ➤ Ingresa el LUGAR de ALMACENAMIENTO: ").strip()
+
+    while True:
+        try:
+            cantidad = int(input("   ➤ Ingresa la CANTIDAD en existencia: "))
+            if cantidad < 0:
+                print("   ⚠ La cantidad no puede ser negativa.")
+            else:
+                break
+        except ValueError:
+            print("   ⚠ La cantidad debe ser un número entero.")
+
+    
+    producto = (nombre, codigo, precio, marca, fecha, danios, almacenamiento, cantidad)
     lista_productos.append(producto)
-    with open("inventario.csv", "a") as archivo:
+
+    with open("inventario.csv", "a", newline="", encoding="utf-8") as archivo:
         writer = csv.writer(archivo)
         writer.writerow(producto)
-    print("Producto Registrado")
+
+    print("\n" + "-"*60)
+    print(f" Producto '{nombre}' registrado correctamente en el inventario.")
+    print("-"*60 + "\n")
+
+    input("Presiona ENTER para volver al menú...")
     menu()
+
 
 
 #Definir funcion de registrar venta(Mid)
