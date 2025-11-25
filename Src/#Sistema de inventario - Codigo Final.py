@@ -9,15 +9,6 @@ lista_productos = []
 #Definir Funciones (Senior)
 #Diseniar Interfaz con prints (Junior)
 #nombre del usuario
-def registrar_usuario():
-    print("Por favor, ingresa tu nombre de usuario: ")
-    print("\n" + "=" * 45)
-    print(f"  !Bienvenido al Sistema de inventario")
-    print("Lantas y servicios Wall")
-    print("=" * 45)
-    print("Este sistema te permitira registrar, consultar y")
-    print("administrar tus productos de forma sedncilla. \n")
-    print("Iniciando sesion....\n")
 
 def registrar_producto():
     print("Ingresar codigo del producto")
@@ -92,8 +83,9 @@ print("=======================================================\n")
 #Registrar Fecha en formato (dd/mm/aaaa) (Mid)
 
 #Registrar nombre del usuario (Junior)
+nombre_usuario = input("Ingrese su nombre: ").title()
 
-print(f"Bienvenido/a {nombre_usuario}. Fecha registrada: {fecha_hoy}\n")
+print(f"Bienvenido/a {nombre_usuario}. Fecha registrada: \n")
 
 def menu():
      print("========= MENU =========\n")
