@@ -2,165 +2,212 @@
 
 import csv
 
+
 #Definir Variables (Junior)
 
 codigo = 0
 seleccion = 0
 lista_productos = []
+lista_historial = []
 
 #Definir Funciones (Senior)
     #Diseniar Interfaz con prints (Junior)
 
 def registrar_producto():
+    print("====================================")
+    print("   Ingresar código del producto")
+    print("====================================\n")
 
-    print("\n" + "="*60)
-    print("         SISTEMA DE INVENTARIO - REGISTRO DE PRODUCTO")
-    print("="*60)
-
-    print("\n[1] Datos de identificación")
-    print("-"*60)
 
     while True:
         try:
-            codigo = int(input("   ➤ Ingresa el CÓDIGO numérico del producto: "))
+            codigo = int(input("\n"))
         except ValueError:
-            print("   ⚠ El código debe ser un número entero. Intenta de nuevo.")
+            print("El código debe ser un número entero. Intente de nuevo.")
             continue
 
-        
-        codigo_repetido = False
-        for prod in lista_productos:
-            if codigo == prod[1]:      
-                codigo_repetido = True
-                break
+        codigo_registrado = set()
+        for p in lista_productos:
+            try:
+                codigo_registrado.add(int(p[1]))
+            except Exception:
+                pass
 
-        if codigo_repetido:
-            print("   ❌ Ese código YA está registrado. Escribe uno diferente.")
-        else:
-            print("   ✅ Código disponible.")
-            break
+        try:
+            with open("inventario.csv", "r", newline="") as archivo:
+                reader = csv.reader(archivo)
+                for fila in reader:
+                    if not fila:
+                        continue
+                    if fila[0].lower() == "nombre":
+                        continue
+                    if len(fila) > 1:
+                        try:
+                            codigo_registrado.add(int(fila[1]))
+                        except Exception:
+                            pass
+        except FileNotFoundError:
+            pass
 
-    
-    while True:
-        nombre = input("\n   ➤ Ingresa el NOMBRE del producto: ").strip().title()
-        if nombre == "":
-            print("   ⚠ El nombre no puede estar vacío.")
+        if codigo in codigo_registrado:
+            print("\n------------------------------------------")
+            print("Ese código ya está registrado. Ingrese otro.")
+            print("\n------------------------------------------")
+
             continue
-
-        nombre_repetido = False
-        for prod in lista_productos:
-            if nombre.lower() == prod[0].lower():   
-                nombre_repetido = True
-                break
-
-        if nombre_repetido:
-            print("   ❌ Ese nombre YA está registrado. Usa uno diferente.")
         else:
-            print("   ✅ Nombre disponible.")
             break
+    print("\n---------------------------")
+    print("Ingresar nombre del producto")
+    print("----------------------------")
 
-    
-    print("\n[2] Datos económicos")
-    print("-"*60)
-
-    while True:
-        try:
-            precio = float(input("   ➤ Ingresa el PRECIO del producto: "))
-            if precio <= 0:
-                print("   ⚠ El precio debe ser mayor que 0.")
-            else:
-                break
-        except ValueError:
-            print("   ⚠ Ingresa un valor numérico válido para el precio.")
-
-    
-    print("\n[3] Información general")
-    print("-"*60)
-
-    marca = input("   ➤ Ingresa la MARCA del producto: ").strip().title()
-    fecha = input("   ➤ Ingresa la FECHA de importación (dd/mm/aaaa): ").strip()
-    danios = input("   ➤ Ingresa los DAÑOS del producto (si no tiene, escribe 'Ninguno'): ").strip()
-    almacenamiento = input("   ➤ Ingresa el LUGAR de ALMACENAMIENTO: ").strip()
+    nombre = input("\n")
+    print("\n------------------------------")
+    print("Ingresar el precio del producto")
+    print("-------------------------------")
 
     while True:
         try:
-            cantidad = int(input("   ➤ Ingresa la CANTIDAD en existencia: "))
-            if cantidad < 0:
-                print("   ⚠ La cantidad no puede ser negativa.")
-            else:
+            precio = int(input(""))
+            if precio > 0:
                 break
-        except ValueError:
-            print("   ⚠ La cantidad debe ser un número entero.")
+            else:
+                print("\n-----------------------------------------")
+                print("Ese precio no es válido. Intente de nuevo.")
+                print("------------------------------------------")
 
-    
+        except ValueError:
+            print("Debe ingresar un número entero.")
+    print("\n-----------------------------")
+    print("Ingresar la marca del producto")
+    print("------------------------------")
+    marca = input("")
+    print("\n-----------------------------------------")
+    print("Ingresar fecha de importación del producto")
+    print("------------------------------------------")
+    while True:
+        try:
+            dia = int(input("Día (00): "))
+            mes = int(input("Mes (00): "))
+            anio = int(input("Año (0000): "))
+            fecha = f"({dia:02d}/{mes:02d}/{anio})"
+            break
+        except ValueError:
+            print("La fecha debe ser ingresada con números. Intente de nuevo.")
+    print("\n--------------------------")
+    print("Ingresar daños del producto")
+    danios = input("")
+    print("----------------------------------------------")
+    print("Ingresar lugar de almacenamiento del producto")
+    almacenamiento = input("")
+    print("\n--------------------------------------------")
+    print("Ingresar cantidad en existencia del producto")
+    while True:
+        try:
+            cantidad = int(input(""))
+            break
+        except ValueError:
+            print("Debe ingresar un número entero.")
+
     producto = (nombre, codigo, precio, marca, fecha, danios, almacenamiento, cantidad)
     lista_productos.append(producto)
 
-    with open("inventario.csv", "a", newline="", encoding="utf-8") as archivo:
+    with open("inventario.csv", "a", newline="") as archivo:
         writer = csv.writer(archivo)
         writer.writerow(producto)
 
-    print("\n" + "-"*60)
-    print(f" Producto '{nombre}' registrado correctamente en el inventario.")
-    print("-"*60 + "\n")
+    registro_historial = (
+        "Usuario:", str(nombre_usuario),
+        "Movimiento: Registrar Producto",
+        "Codigo del Producto:", codigo,
+        "Fecha:", fecha_registro
+    )
 
-    input("Presiona ENTER para volver al menú...")
+    lista_historial.append(registro_historial)
+
+    with open("historial.csv", "a", newline="") as archivo:
+        writer = csv.writer(archivo)
+        writer.writerow(registro_historial)
+
+    print("Producto registrado")
     menu()
-
-
-
-#Definir funcion de registrar venta(Mid)
 
 def registrar_venta():
     print("\n--- Registro De Venta ---")
 
-    codigo_buscar = int(input("Ingrese el código del producto vendido:\n"))
+    codigo_buscar = input("Ingrese el código del producto vendido:\n").strip()
     encontrado = False
-    for i in range(len(lista_productos)):
-        producto = lista_productos[i]
-        nombre = producto[0]
-        codigo = producto[1]
-        cantidad_actual = int(producto[7])
+
+    try:
+        with open("inventario.csv", "r") as archivo:
+            reader = csv.reader(archivo)
+            datos = list(reader)
+    except FileNotFoundError:
+        print("No existe inventario registrado.\n")
+        return menu()
+
+    if len(datos) == 0:
+        print("No hay productos registrados.\n")
+        return menu()
+
+    inicio = 1 if datos[0] and datos[0][0].lower() == "nombre" else 0
+
+    for i in range(inicio, len(datos)):
+        fila = datos[i]
+
+        if not fila or len(fila) < 8:
+            continue
+
+        nombre = fila[0].strip()
+        codigo = fila[1].strip()
+        cantidad_actual = int(fila[7])
 
         if codigo_buscar == codigo:
             encontrado = True
-            print(f"Producto encontrado: {nombre}")
-            cantidad_vender = int(input("Ingrese cantidad vendida:\n"))
-            
+            print(f"\nProducto encontrado: {nombre}")
+
+            try:
+                cantidad_vender = int(input("Ingrese cantidad vendida:\n"))
+            except ValueError:
+                print("La cantidad debe ser un número entero.")
+                return menu()
+
             if cantidad_vender <= 0:
                 print("La cantidad debe ser mayor a 0.")
-                menu()
-                return
+                return menu()
 
             if cantidad_vender > cantidad_actual:
                 print("No hay suficiente inventario para esta venta.")
-                menu()
-                return
+                return menu()
 
             nueva_cantidad = cantidad_actual - cantidad_vender
-
-            lista_productos[i] = (
-                producto[0], producto[1], producto[2], producto[3],
-                producto[4], producto[5], producto[6], str(nueva_cantidad)
-            )
+            datos[i][7] = str(nueva_cantidad)
 
             with open("inventario.csv", "w", newline="") as archivo:
                 writer = csv.writer(archivo)
-                writer.writerow(["Nombre", "Código", "Precio", "Marca", "Fecha", "Daños", "Almacenamiento", "Cantidad"])
-                writer.writerows(lista_productos)
+                writer.writerows(datos)
 
             print("\nVenta registrada con éxito.")
             print(f"Fecha de venta: {fecha_registro}")
             print(f"Cantidad restante del producto: {nueva_cantidad}")
 
-            menu()
-            return
+            registro_historial = (
+                "Usuario:", str(nombre_usuario),
+                "Movimiento: Registrar Venta",
+                "Codigo de Producto:", codigo,
+                "Fecha:", fecha_registro
+            )
+
+            with open("historial.csv", "a", newline="") as archivo:
+                writer = csv.writer(archivo)
+                writer.writerow(registro_historial)
+
+            return menu()
 
     if not encontrado:
         print("No se encontró un producto con ese código.")
-        menu()
+        return menu()
 
-import csv
 
 def mostrar_inventario():
     print("\n=============== INVENTARIO ===============\n")
@@ -195,6 +242,31 @@ def mostrar_inventario():
         print("No existe el archivo inventario.csv\n")
 
     return menu()
+
+def mostrar_historial():
+
+    print("Historial de movimientos\n")
+
+    try:
+        with open("historial.csv", "r") as archivo:
+            reader = csv.reader(archivo)
+            datos = list(reader)
+
+            if len(datos) == 0:
+                print("No hay movimientos registrados.\n")
+                return menu()
+
+            for linea in datos:
+                for palabra in linea:
+                    print(palabra, end=" ")
+            
+
+                print("\n---------------------------------------")
+
+            return menu()
+
+    except FileNotFoundError:
+        print("No existe el archivo historial.csv\n")
 
 def salir():
     print("¡Gracias, vuelva pronto!")
@@ -243,10 +315,11 @@ def menu():
               print("")
               mostrar_inventario()
      elif seleccion == 4:
+          mostrar_historial()
+     elif seleccion == 5:
            salir()
      else:
              print("Opcion Invalida")
              menu()
-
 
 menu()
