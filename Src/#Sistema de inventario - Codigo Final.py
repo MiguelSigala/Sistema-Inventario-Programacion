@@ -52,10 +52,10 @@ def registrar_producto():
         else:
             break
 
-    print("Ingresar nombre del producto")
+    print("Ingresar nombre del producto:")
     nombre = input("\n")
 
-    print("Ingresar el precio del producto")
+    print("Ingresar el precio del producto:")
     while True:
         try:
             precio = int(input(""))
@@ -66,10 +66,10 @@ def registrar_producto():
         except ValueError:
             print("Debe ingresar un número entero.")
 
-    print("Ingresar la marca del producto")
+    print("Ingresar la marca del producto:")
     marca = input("")
 
-    print("Ingresar fecha de importación del producto")
+    print("Ingresar fecha de importación del producto:")
     while True:
         try:
             dia = int(input("Día (00): "))
@@ -80,13 +80,13 @@ def registrar_producto():
         except ValueError:
             print("La fecha debe ser ingresada con números. Intente de nuevo.")
 
-    print("Ingresar daños del producto")
+    print("Ingresar daños del producto:")
     danios = input("")
 
-    print("Ingresar lugar de almacenamiento del producto")
+    print("Ingresar lugar de almacenamiento del producto:")
     almacenamiento = input("")
 
-    print("Ingresar cantidad en existencia del producto")
+    print("Ingresar cantidad en existencia del producto:")
     while True:
         try:
             cantidad = int(input(""))
@@ -114,7 +114,7 @@ def registrar_producto():
         writer = csv.writer(archivo)
         writer.writerow(registro_historial)
 
-    print("Producto registrado")
+    print("===Producto registrado===")
     menu()
 
 def registrar_venta():
@@ -230,7 +230,7 @@ def mostrar_inventario():
 
 def mostrar_historial():
 
-    print("Historial de movimientos\n")
+    print("===Historial de movimientos===\n")
 
     try:
         with open("historial.csv", "r") as archivo:
@@ -277,11 +277,13 @@ print("Fecha registrada: ", fecha_registro)
 
 #Registrar nombre del usuario (Junior)
 nombre_usuario = input(str())
-print(f"Bienvenido/a {nombre_usuario}. Fecha registrada: {fecha_registro}\n")
+print(f"====== Bienvenido/a. ====== {nombre_usuario}")
+print(f"\n===Fecha registrada: {fecha_registro}===")
+
 
 ##Corregir menu (Jr)
 def menu():
-     print("========= MENU =========\n")
+     print("\n========= MENU =========\n")
      print("- 1. Registrar producto")
      print("- 2. Registrar venta")
      print("- 3. Mostrar inventario")
