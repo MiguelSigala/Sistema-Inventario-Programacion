@@ -33,6 +33,7 @@ def registrar_producto():
             except Exception:
                 pass
 
+
         try:
             with open("inventario.csv", "r", newline="") as archivo:
                 reader = csv.reader(archivo)
