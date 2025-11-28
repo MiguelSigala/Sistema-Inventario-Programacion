@@ -270,7 +270,7 @@ def mostrar_inventario():
 
 def mostrar_historial():
 
-    print("Historial de movimientos\n")
+    print("\n=============== HISTORIAL DE MOVIMIENTOS ===============\n")
 
     try:
         with open("historial.csv", "r") as archivo:
@@ -292,6 +292,8 @@ def mostrar_historial():
 
     except FileNotFoundError:
         print("No existe el archivo historial.csv\n")
+
+    return menu()
 
 def salir():
     print("¡Gracias, vuelva pronto!")
