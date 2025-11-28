@@ -1,0 +1,21 @@
+Nombre,Codigo,Precio,Marca,Fecha,Danos,Almacenamiento,Cantidad
+Llanta 205/55 R16,1001,1550,Michelin,(12/3/2025),NA,Estante A1,24
+Llanta 195/65 R15,1002,1280,Goodyear,(15/3/2025),NA,Estante A2,30
+Llanta 215/60 R17,1003,1890,Bridgestone,(20/3/2025),NA,Estante A3,18
+Aceite 5W-30 Sintetico,1004,350,Castrol,(10/2/2025),NA,Pasillo B1,40
+Aceite 20W-50 Mineral,1005,180,Quaker State,(11/2/2025),NA,Pasillo B1,35
+Filtro de Aceite Ford,1006,120,Motorcraft,(25/2/2025),NA,Pasillo B2,50
+Filtro de Aceite Nissan,1007,130,Fram,(26/2/2025),NA,Pasillo B2,45
+Filtro de Aire Universal,1008,180,Bosch,(2/1/2025),NA,Pasillo B3,28
+Limpiaparabrisas 18,1009,95,Bosch,(5/1/2025),NA,Gondola C1,60
+Limpiaparabrisas 22,1010,110,Bosch,(5/1/2025),NA,Gondola C1,55
+Bateria 12V 650A,1011,1850,LTH,(8/2/2025),NA,Estante D1,14
+Bateria 12V 750A,1012,2200,LTH,(9/2/2025),NA,Estante D1,10
+Liquido para Frenos DOT 4,1013,90,Prestone,(12/1/2025),NA,Pasillo C3,37
+Anticongelante Verde,1014,150,Prestone,(14/1/2025),NA,Pasillo C2,25
+Anticongelante Rojo,1015,160,Pentosin,(14/1/2025),NA,Pasillo C2,23
+Juego de Balatas Traseras,1016,420,Brembo,(18/3/2025),NA,Estante E1,15
+Juego de Balatas Delanteras,1017,480,Brembo,(18/3/2025),NA,Estante E1,17
+Liquido para Direccion Hidraulica,1018,110,Prestone,(1/2/2025),NA,Pasillo C3,32
+Cera Liquida para Auto,1019,140,Meguiars,(22/2/2025),NA,Gondola F1,27
+Shampoo para Auto,1020,95,Turtle Wax,(22/2/2025),NA,Gondola F1,33 
