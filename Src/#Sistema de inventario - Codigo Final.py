@@ -159,7 +159,7 @@ def registrar_producto():
     menu()
 
 def registrar_venta():
-    print("\n--- Registro De Venta ---")
+    print("\n=============== REGISTRAR VENTA ===============\n")
 
     codigo_buscar = input("Ingrese el código del producto vendido:\n").strip()
     encontrado = False
@@ -323,29 +323,34 @@ print(f"\n===Fecha registrada: {fecha_registro}===")
 
 ##Corregir menu (Jr)
 def menu():
-     print("\n========= MENU =========\n")
-     print("- 1. Registrar producto")
-     print("- 2. Registrar venta")
-     print("- 3. Mostrar inventario")
-     print("- 4. Mostrar historial")
-     print("- 5. Salir del sistema")
-     print("========================\n")
-     seleccion = 0
-     seleccion = int(input("Selecciona una opcion (1-5): "))
-     if seleccion == 1:
-        print("")
+    print("\n========= MENU =========\n")
+    print("- 1. Registrar producto")
+    print("- 2. Registrar venta")
+    print("- 3. Mostrar inventario")
+    print("- 4. Mostrar historial")
+    print("- 5. Salir del sistema")
+    print("========================\n")
+
+    while True:
+        try:
+            seleccion = int(input("Selecciona una opción (1-5): "))
+
+            if 1 <= seleccion <= 5:
+                break
+            else:
+                print("Opción inválida. Ingresa un número entre 1 y 5.\n")
+
+        except ValueError:
+            print("Entrada inválida. Debes ingresar solo números.\n")
+
+    if seleccion == 1:
         registrar_producto()
-     elif seleccion == 2:
-               print("")
-               registrar_venta()
-     elif seleccion == 3:
-              print("")
-              mostrar_inventario()
-     elif seleccion == 4:
-          mostrar_historial()
-     elif seleccion == 5:
-           salir()
-     else:
-             print("Opcion Invalida")
-             menu()
+    elif seleccion == 2:
+        registrar_venta()
+    elif seleccion == 3:
+        mostrar_inventario()
+    elif seleccion == 4:
+        mostrar_historial()
+    elif seleccion == 5:
+        salir()
 menu()
