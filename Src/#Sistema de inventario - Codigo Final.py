@@ -2,7 +2,6 @@
 
 import csv
 
-
 #Definir Variables (Junior)
 
 codigo = 0
@@ -14,7 +13,10 @@ lista_historial = []
     #Diseniar Interfaz con prints (Junior)
 
 def registrar_producto():
-    print("Ingresar código del producto")
+    print("====================================")
+    print("   Ingresar código del producto")
+    print("====================================\n")
+
 
     while True:
         try:
@@ -47,45 +49,84 @@ def registrar_producto():
             pass
 
         if codigo in codigo_registrado:
+            print("\n------------------------------------------")
             print("Ese código ya está registrado. Ingrese otro.")
+            print("\n------------------------------------------")
+
             continue
         else:
             break
-
+    print("\n---------------------------")
     print("Ingresar nombre del producto")
-    nombre = input("\n")
+    print("----------------------------")
 
+    nombre = input("\n")
+    print("\n------------------------------")
     print("Ingresar el precio del producto")
+    print("-------------------------------")
+
     while True:
         try:
             precio = int(input(""))
             if precio > 0:
                 break
             else:
+                print("\n-----------------------------------------")
                 print("Ese precio no es válido. Intente de nuevo.")
+                print("------------------------------------------")
+
         except ValueError:
             print("Debe ingresar un número entero.")
-
+    print("\n-----------------------------")
     print("Ingresar la marca del producto")
+    print("------------------------------")
     marca = input("")
-
+    print("\n-----------------------------------------")
     print("Ingresar fecha de importación del producto")
+    print("------------------------------------------")
     while True:
         try:
-            dia = int(input("Día (00): "))
-            mes = int(input("Mes (00): "))
-            anio = int(input("Año (0000): "))
-            fecha = f"({dia:02d}/{mes:02d}/{anio})"
+            dia = int(input("Día (DD): "))
+            mes = int(input("Mes (MM): "))
+            anio = int(input("Año (AAAA): "))
+
+            if dia < 1 or dia > 31:
+                print("El día debe estar entre 1 y 31.")
+                continue
+
+            if mes < 1 or mes > 12:
+                print("El mes debe estar entre 1 y 12.")
+                continue
+
+            if anio < 2000 or anio > 2025:
+                print("El año debe estar entre 2000 y 2025.")
+                continue
+
+            if len(str(dia)) > 2:
+                print("El día no puede tener más de 2 dígitos.")
+                continue
+
+            if len(str(mes)) > 2:
+                print("El mes no puede tener más de 2 dígitos.")
+                continue
+
+            if len(str(anio)) != 4:
+                print("El año debe tener exactamente 4 dígitos.")
+                continue
+
+            fecha = f"{dia:02d}/{mes:02d}/{anio}"
             break
+
         except ValueError:
             print("La fecha debe ser ingresada con números. Intente de nuevo.")
 
+    print("\n--------------------------")
     print("Ingresar daños del producto")
     danios = input("")
-
+    print("----------------------------------------------")
     print("Ingresar lugar de almacenamiento del producto")
     almacenamiento = input("")
-
+    print("\n--------------------------------------------")
     print("Ingresar cantidad en existencia del producto")
     while True:
         try:
@@ -215,7 +256,7 @@ def mostrar_inventario():
 
                 print("Codigo: ", producto[1])
                 print("Nombre: ", producto[0])
-                print("Precio: ", producto[2])
+                print("Precio: ", producto[2],"$")
                 print("Marca: ", producto[3])
                 print("Fecha de importacion: ", producto[4])
                 print("Daños: ", producto[5])
@@ -263,25 +304,25 @@ def salir():
 print("=======================================================")
 print("       SISTEMA DE INVENTARIO - TIENDA AUTOMOTRIZ")
 print("=======================================================\n")
-#Registrar Fecha en formato (dd/mm/aaaa) (Mid)
 
-print("Ingresa la fecha del día de hoy: \n")
+print("Fecha Actual: \n")
 
-###Definir condicional si el anio es invalido (si es mayor a 2025 y si es menor a 2000)(Mid)
+from datetime import datetime
 
-dia = int(input("Día (00): "))
-mes = int(input("Mes (00): "))
-anio = int(input("Año (0000): "))
-fecha_registro = (dia, mes, anio)
-print("Fecha registrada: ", fecha_registro)
+print(datetime.now())
+
+fecha_registro = datetime.now()
 
 #Registrar nombre del usuario (Junior)
+
+print("======= Ingrese su Nombre =======")
 nombre_usuario = input(str())
-print(f"Bienvenido/a {nombre_usuario}. Fecha registrada: {fecha_registro}\n")
+print(f"====== Bienvenido/a. ====== {nombre_usuario}")
+print(f"\n===Fecha registrada: {fecha_registro}===")
 
 ##Corregir menu (Jr)
 def menu():
-     print("========= MENU =========\n")
+     print("\n========= MENU =========\n")
      print("- 1. Registrar producto")
      print("- 2. Registrar venta")
      print("- 3. Mostrar inventario")
@@ -306,5 +347,4 @@ def menu():
      else:
              print("Opcion Invalida")
              menu()
-
 menu()
