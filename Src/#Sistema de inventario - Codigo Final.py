@@ -234,7 +234,6 @@ def registrar_venta():
         print("No se encontró un producto con ese código.")
         return menu()
 
-
 def mostrar_inventario():
     print("\n=============== INVENTARIO ===============\n")
 
